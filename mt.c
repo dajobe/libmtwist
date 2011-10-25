@@ -87,6 +87,8 @@ struct mtwist_s {
 /**
  * mtwist_new:
  *
+ * Construct a Mersenne Twister object
+ *
  * Return value: new MT object or NULL on failure
  */
 mtwist*
@@ -109,6 +111,7 @@ mtwist_new(void)
  * mtwist_free:
  * @mt: mt object
  *
+ * Destroy a Mersenne Twister object
  */
 void
 mtwist_free(mtwist* mt) 
@@ -123,6 +126,7 @@ mtwist_free(mtwist* mt)
  * @mt: mt object
  * @seed: seed (lower 32 bits used)
  *
+ * Initialise a Mersenne Twister with an unsigned 32 bit int seed
  */
 void
 mtwist_init(mtwist* mt, unsigned long seed)
