@@ -1,0 +1,25 @@
+LIBMTWIST=libmtwist.a
+LIBMTWIST_SOURCES=mt.c
+LIBMTWIST_OBJS=$(LIBMTWIST_SOURCES:.c=.o)
+
+TESTS=test
+
+CFLAGS=-g
+LDFLAGS=-g
+
+CPPFLAGS=-DHAVE_STDINT_H -DHAVE_STDLIB_H -I.
+
+all: $(TESTS)
+
+check: mttest
+	./mttest
+
+mttest: $(LIBMTWIST) test.o
+	$(CC) -o $@ test.o $(LIBMTWIST)
+
+$(LIBMTWIST): $(LIBMTWIST_OBJS)
+	$(RM) $@
+	$(AR) -cq $@ $(LIBMTWIST_OBJS)
+
+clean:
+	$(RM) $(TESTS) $(LIBMTWIST) $(LIBMTWIST_OBJS)
