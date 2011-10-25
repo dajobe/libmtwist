@@ -81,6 +81,8 @@ struct mtwist_s {
   /* Number of remaining integers in state before an update is needed */
   unsigned int remaining;
 
+  /* 1 if a seed was given */
+  unsigned int seeded : 1;
 };
 
 
@@ -102,6 +104,7 @@ mtwist_new(void)
   
   mt->remaining = 0;
   mt->next = NULL;
+  mt->seeded = 0;
 
   return mt;
 }
@@ -144,6 +147,8 @@ mtwist_init(mtwist* mt, unsigned long seed)
 
   mt->remaining = 0;
   mt->next = NULL;
+
+  mt->seeded = 1;
 }
 
 
@@ -180,6 +185,12 @@ mtwist_u32rand(mtwist* mt)
 {
   uint32_t r;
 
+  if(!mt)
+    return 0UL;
+
+  if(!mt->seeded)
+    mtwist_init(mt, 5489UL);
+
   if(!mt->remaining)
     mtwist_update_state(mt);
   
@@ -210,6 +221,9 @@ mtwist_drand(mtwist* mt)
 {
   unsigned long r = mtwist_u32rand(mt);
   double d;
+
+  if(!mt)
+    return 0.0;
 
   d = r / 4294967296.0; /* 2^32 */
 
