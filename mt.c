@@ -219,11 +219,13 @@ mtwist_u32rand(mtwist* mt)
 double
 mtwist_drand(mtwist* mt)
 {
-  unsigned long r = mtwist_u32rand(mt);
+  unsigned long r;
   double d;
 
   if(!mt)
     return 0.0;
+
+  r = mtwist_u32rand(mt);
 
   d = r / 4294967296.0; /* 2^32 */
 
