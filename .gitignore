@@ -2,6 +2,7 @@
 *.o
 *.a
 *.dylib
+*.so*
 CMakeCache.txt
 CMakeFiles
 Makefile
