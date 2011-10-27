@@ -13,7 +13,7 @@ CPPFLAGS=-DHAVE_STDINT_H -DHAVE_STDLIB_H -I.
 
 all: $(TESTS)
 
-check: mttest
+test check: mttest
 	./mttest
 
 mttest: $(LIBMTWIST) test.o
