@@ -137,7 +137,7 @@ main(int argc, char *argv[])
     }
   }
 
-  fprintf(stderr, "%s: Returned %d failures\n", program, failures);
+  fprintf(stdout, "%s: Returned %d failures\n", program, failures);
 
   tidy:
   if(mt)
