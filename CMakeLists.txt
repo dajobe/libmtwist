@@ -15,20 +15,6 @@ INCLUDE_DIRECTORIES ( "${PROJECT_SOURCE_DIR}" )
 
 ADD_DEFINITIONS (-g -O2 -fsigned-char -freg-struct-return -Wall -W -Wshadow -Wstrict-prototypes -Wpointer-arith -Wcast-qual -Winline -Werror)
 
-ADD_LIBRARY ( mtwist SHARED ${LIBMTWIST_SRCS} )
-
-SET_TARGET_PROPERTIES (mtwist
-	PROPERTIES
-	VERSION 1.0.0
-	SOVERSION 1)
-
-IF (BUILD_TESTING)
-  ADD_EXECUTABLE (mttest test.c)
-
-  TARGET_LINK_LIBRARIES (mttest mtwist)
-ENDIF ()
-
-
 CHECK_INCLUDE_FILE (
   "stdlib.h" HAVE_STDLIB_H)
 CHECK_INCLUDE_FILE (
@@ -42,6 +28,23 @@ IF (HAVE_STDINT_H)
   ADD_DEFINITIONS (-DHAVE_STDINT_H)
 ENDIF ()
 
+
+ADD_LIBRARY ( mtwist SHARED ${LIBMTWIST_SRCS} )
+
+SET_TARGET_PROPERTIES (mtwist
+	PROPERTIES
+	VERSION 1.0.0
+	SOVERSION 1)
+
+
+IF (BUILD_TESTING)
+  ADD_EXECUTABLE (mttest test.c)
+
+  TARGET_LINK_LIBRARIES (mttest mtwist)
+ENDIF ()
+
+
+
 INSTALL (FILES mtwist.h
          DESTINATION include
 	 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
@@ -51,6 +54,9 @@ INSTALL (TARGETS mtwist
          PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 
-ADD_TEST (mttest1 mttest)
+ADD_TEST (
+  NAME mttest1
+  COMMAND  mttest)
+
 SET_TESTS_PROPERTIES (mttest1
   PROPERTIES PASS_REGULAR_EXPRESSION "Returned 0 failures")
