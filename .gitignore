@@ -1,11 +1,14 @@
-*~
-*.o
 *.a
 *.dylib
+*.o
 *.so*
+*~
 CMakeCache.txt
 CMakeFiles
+CTestTestfile.cmake
+DartConfiguration.tcl
 Makefile
+Testing/
 cmake_install.cmake
 install_manifest.txt
 mttest
