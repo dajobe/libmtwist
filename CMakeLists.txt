@@ -2,18 +2,23 @@ CMAKE_MINIMUM_REQUIRED (VERSION 2.6)
 
 PROJECT (libmtwist)
 
+
+# CMake includes
 INCLUDE (CTest)
-
 INCLUDE (${CMAKE_ROOT}/Modules/CheckIncludeFile.cmake)
+INCLUDE (${CMAKE_ROOT}/Modules/CheckCCompilerFlag.cmake)
 
 
-SET (LIBMTWIST_SRCS
-  mt.c
-)
-
+# Compile include dirs and CPP definitions
 INCLUDE_DIRECTORIES ( "${PROJECT_SOURCE_DIR}" )
 
-ADD_DEFINITIONS (-g -O2 -fsigned-char -freg-struct-return -Wall -W -Wshadow -Wstrict-prototypes -Wpointer-arith -Wcast-qual -Winline -Werror)
+IF (CMAKE_BUILD_TOOL MATCHES "(msdev|devenv|nmake)")
+    add_definitions(/W2)
+ENDIF ()
+
+IF (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  ADD_DEFINITIONS (-Wall -W -Wshadow -Wstrict-prototypes -Wpointer-arith -Wcast-qual -Winline -Werror)
+ENDIF ()
 
 CHECK_INCLUDE_FILE (
   "stdlib.h" HAVE_STDLIB_H)
@@ -29,6 +34,11 @@ IF (HAVE_STDINT_H)
 ENDIF ()
 
 
+# Targets
+SET (LIBMTWIST_SRCS
+  mt.c
+)
+
 ADD_LIBRARY ( mtwist SHARED ${LIBMTWIST_SRCS} )
 
 SET_TARGET_PROPERTIES (mtwist
@@ -37,14 +47,22 @@ SET_TARGET_PROPERTIES (mtwist
 	SOVERSION 1)
 
 
+# Testing
 IF (BUILD_TESTING)
   ADD_EXECUTABLE (mttest test.c)
 
   TARGET_LINK_LIBRARIES (mttest mtwist)
 ENDIF ()
 
+ADD_TEST (
+  NAME mttest1
+  COMMAND  mttest)
+
+SET_TESTS_PROPERTIES (mttest1
+  PROPERTIES PASS_REGULAR_EXPRESSION "Returned 0 failures")
 
 
+# Installing
 INSTALL (FILES mtwist.h
          DESTINATION include
 	 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
@@ -54,9 +72,5 @@ INSTALL (TARGETS mtwist
          PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 
-ADD_TEST (
-  NAME mttest1
-  COMMAND  mttest)
-
-SET_TESTS_PROPERTIES (mttest1
-  PROPERTIES PASS_REGULAR_EXPRESSION "Returned 0 failures")
+# Packaging
+# Nothing yet
