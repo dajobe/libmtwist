@@ -29,6 +29,10 @@
  * 
  */
 
+#ifdef MTWIST_CONFIG
+#include <mtwist_config.h>
+#endif
+
 #include <stdio.h>
 
 #ifdef HAVE_TIME_H

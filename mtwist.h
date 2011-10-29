@@ -36,10 +36,6 @@
 extern "C" {
 #endif
 
-#ifdef MTWIST_CONFIG
-#include <mtwist_config.h>
-#endif
-
 /* Mersenne Twister state */
 typedef struct mtwist_s mtwist;
 
