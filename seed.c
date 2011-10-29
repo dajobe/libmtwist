@@ -52,7 +52,7 @@ typedef unsigned long uint32_t;
 
 
 /**
- * mtwist_seed_from_system
+ * mtwist_seed_from_system:
  * @mt: mt object
  *
  * Get a 32 bit unsigned integer random seed based on system sources
