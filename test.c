@@ -92,21 +92,21 @@ main(int argc, char *argv[])
   if(argc != 1)
     return 1;
 
-  mt = mtwist_new();
+  mt = MTWIST_DECLARE(mtwist_new)();
   if(!mt) {
     fprintf(stderr, "%s: mtwist_new() failed\n", program);
     failures++;
     goto tidy;
   }
   
-  mtwist_init(mt, TEST_SEED);
+  MTWIST_DECLARE(mtwist_init)(mt, TEST_SEED);
 
   for(test = 0; test < N_TESTS; test++) {
     int check = 0;
     unsigned long expected_v;
     unsigned long v;
     
-    v = mtwist_u32rand(mt);
+    v = MTWIST_DECLARE(mtwist_u32rand)(mt);
 
     if(test >= TEST_SET_1_START && test <= TEST_SET_1_END) {
       check = 1;
@@ -141,7 +141,7 @@ main(int argc, char *argv[])
 
   tidy:
   if(mt)
-    mtwist_free(mt);
+    MTWIST_DECLARE(mtwist_free)(mt);
 
   return failures;
 }

@@ -37,7 +37,6 @@
 
 #define MT_STATIC_SEED 5489UL
 
-
 /* Mersenne Twister library state */
 struct mtwist_s {
   /* MT buffer holding N 32 bit unsigned integers */

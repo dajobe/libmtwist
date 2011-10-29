@@ -60,7 +60,7 @@ typedef unsigned long uint32_t;
  * Return value: seed with only lower 32 bits valid
  */
 unsigned long
-mtwist_seed_from_system(mtwist* mt)
+MTWIST_DECLARE(mtwist_seed_from_system)(mtwist* mt)
 {
   /* SOURCE 1: processor clock ticks since process started */
   uint32_t a = (uint32_t)clock();
