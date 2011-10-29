@@ -32,7 +32,7 @@
 #include <stdio.h>
 
 #ifdef HAVE_TIME_H
-#include <time.h>>
+#include <time.h>
 #endif
 
 #ifdef HAVE_UNISTD_H
