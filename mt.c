@@ -176,7 +176,7 @@ mtwist_u32rand(mtwist* mt)
     return 0UL;
 
   if(!mt->seeded)
-    mtwist_init(mt, MT_STATIC_SEED);
+    mtwist_init(fc->mt, mtwist_seed_from_system(mt));
 
   if(!mt->remaining)
     mtwist_update_state(mt);
