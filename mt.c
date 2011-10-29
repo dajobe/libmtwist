@@ -49,6 +49,8 @@ typedef unsigned long uint32_t;
 
 #include <mtwist.h>
 
+#include <mtwist_internal.h>
+
 /*
  * Mersenne Twister (MT19937) algorithm
  * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
@@ -56,9 +58,6 @@ typedef unsigned long uint32_t;
  * http://en.wikipedia.org/wiki/Mersenne_twister
  *
  */
-
-#define MTWIST_N             624
-#define MTWIST_M             397
 
 #define MTWIST_UPPER_MASK    UINT32_C(0x80000000)
 #define MTWIST_LOWER_MASK    UINT32_C(0x7FFFFFFF)
@@ -68,22 +67,6 @@ typedef unsigned long uint32_t;
 
 #define MTWIST_MIXBITS(u, v) ( ( (u) & MTWIST_UPPER_MASK) | ( (v) & MTWIST_LOWER_MASK) )
 #define MTWIST_TWIST(u, v)  ( (MTWIST_MIXBITS(u, v) >> 1) ^ ( (v) & UINT32_C(1) ? MTWIST_MATRIX_A : UINT32_C(0)) )
-
-
-/* Mersenne Twister state */
-struct mtwist_s {
-  /* MT buffer holding N 32 bit unsigned integers */
-  uint32_t state[MTWIST_N];
-
-  /* Pointer into above - next long to use */
-  uint32_t* next;
-
-  /* Number of remaining integers in state before an update is needed */
-  unsigned int remaining;
-
-  /* 1 if a seed was given */
-  unsigned int seeded : 1;
-};
 
 
 /**
@@ -189,7 +172,7 @@ mtwist_u32rand(mtwist* mt)
     return 0UL;
 
   if(!mt->seeded)
-    mtwist_init(mt, 5489UL);
+    mtwist_init(mt, MT_STATIC_SEED);
 
   if(!mt->remaining)
     mtwist_update_state(mt);

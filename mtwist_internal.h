@@ -1,6 +1,6 @@
 /* -*- Mode: c; c-basic-offset: 2 -*-
  *
- * mtwist.h - Mersenne Twister header
+ * mtwist_internal.c - Mersenne Twister internals
  *
  * This is free and unencumbered software released into the public domain.
  *
@@ -29,32 +29,32 @@
  * 
  */
 
-#ifndef MTWIST_H
-#define MTWIST_H
+#ifndef MTWIST_INTERNAL_H
+#define MTWIST_INTERNAL_H 1
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#define MTWIST_N             624
+#define MTWIST_M             397
 
-/* Mersenne Twister state */
-typedef struct mtwist_s mtwist;
+#define MT_STATIC_SEED 5489UL
 
 
-/* constructor */
-mtwist* mtwist_new(void);
-/* destructor */
-void mtwist_free(mtwist* mt);
+/* Mersenne Twister library state */
+struct mtwist_s {
+  /* MT buffer holding N 32 bit unsigned integers */
+  uint32_t state[MTWIST_N];
 
-/* methods */
-void mtwist_init(mtwist* mt, unsigned long seed);
-unsigned long mtwist_u32rand(mtwist* mt);
-double mtwist_drand(mtwist* mt);
+  /* Pointer into above - next long to use */
+  uint32_t* next;
 
-/* utility functions */
-unsigned long mtwist_seed_from_system(mtwist* mt);
+  /* Number of remaining integers in state before an update is needed */
+  unsigned int remaining;
 
-#ifdef __cplusplus
-}
-#endif
+  /* 1 if a seed was given */
+  unsigned int seeded : 1;
+
+  /* 1 to always return a static system seed (MT_STATIC_SEED) */
+  unsigned int static_system_seed : 1;
+};
+
 
 #endif
