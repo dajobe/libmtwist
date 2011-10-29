@@ -36,29 +36,25 @@
 extern "C" {
 #endif
 
+#ifdef MTWIST_CONFIG
+#include <mtwist_config.h>
+#endif
+
 /* Mersenne Twister state */
 typedef struct mtwist_s mtwist;
 
-
-#ifdef MTWIST_PREFIX
-#define MTWIST_DECLARE(symbol) MTWIST_PREFIX ## symbol
-#else
-#define MTWIST_DECLARE(symbol) symbol
-#endif
-
-
 /* constructor */
-mtwist* MTWIST_DECLARE(mtwist_new)(void);
+mtwist* mtwist_new(void);
 /* destructor */
-void MTWIST_DECLARE(mtwist_free)(mtwist* mt);
+void mtwist_free(mtwist* mt);
 
 /* methods */
-void MTWIST_DECLARE(mtwist_init)(mtwist* mt, unsigned long seed);
-unsigned long MTWIST_DECLARE(mtwist_u32rand)(mtwist* mt);
-double MTWIST_DECLARE(mtwist_drand)(mtwist* mt);
+void mtwist_init(mtwist* mt, unsigned long seed);
+unsigned long mtwist_u32rand(mtwist* mt);
+double mtwist_drand(mtwist* mt);
 
 /* utility functions */
-unsigned long MTWIST_DECLARE(mtwist_seed_from_system)(mtwist* mt);
+unsigned long mtwist_seed_from_system(mtwist* mt);
 
 #ifdef __cplusplus
 }

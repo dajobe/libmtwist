@@ -77,7 +77,7 @@ typedef unsigned long uint32_t;
  * Return value: new MT object or NULL on failure
  */
 mtwist*
-MTWIST_DECLARE(mtwist_new)(void)
+mtwist_new(void)
 {
   mtwist* mt;
   
@@ -100,7 +100,7 @@ MTWIST_DECLARE(mtwist_new)(void)
  * Destroy a Mersenne Twister object
  */
 void
-MTWIST_DECLARE(mtwist_free)(mtwist* mt) 
+mtwist_free(mtwist* mt) 
 {
   if(mt)
     free(mt);
@@ -115,7 +115,7 @@ MTWIST_DECLARE(mtwist_free)(mtwist* mt)
  * Initialise a Mersenne Twister with an unsigned 32 bit int seed
  */
 void
-MTWIST_DECLARE(mtwist_init)(mtwist* mt, unsigned long seed)
+mtwist_init(mtwist* mt, unsigned long seed)
 {
   int i;
 
@@ -136,7 +136,7 @@ MTWIST_DECLARE(mtwist_init)(mtwist* mt, unsigned long seed)
 
 
 static void
-MTWIST_DECLARE(mtwist_update_state)(mtwist* mt)
+mtwist_update_state(mtwist* mt)
 {
   int count;
   uint32_t *p = mt->state;
@@ -164,7 +164,7 @@ MTWIST_DECLARE(mtwist_update_state)(mtwist* mt)
  * Return value: unsigned long with 32 valid bits
  */
 unsigned long
-MTWIST_DECLARE(mtwist_u32rand)(mtwist* mt)
+mtwist_u32rand(mtwist* mt)
 {
   uint32_t r;
 
@@ -172,10 +172,10 @@ MTWIST_DECLARE(mtwist_u32rand)(mtwist* mt)
     return 0UL;
 
   if(!mt->seeded)
-    MTWIST_DECLARE(mtwist_init)(mt, MT_STATIC_SEED);
+    mtwist_init(mt, MT_STATIC_SEED);
 
   if(!mt->remaining)
-    MTWIST_DECLARE(mtwist_update_state)(mt);
+    mtwist_update_state(mt);
   
   r = *mt->next++;
   mt->remaining--;
@@ -200,7 +200,7 @@ MTWIST_DECLARE(mtwist_u32rand)(mtwist* mt)
  *
  * Return value: random double in the range 0.0 inclusive to 1.0 exclusive; [0.0, 1.0) */
 double
-MTWIST_DECLARE(mtwist_drand)(mtwist* mt)
+mtwist_drand(mtwist* mt)
 {
   unsigned long r;
   double d;
@@ -208,7 +208,7 @@ MTWIST_DECLARE(mtwist_drand)(mtwist* mt)
   if(!mt)
     return 0.0;
 
-  r = MTWIST_DECLARE(mtwist_u32rand)(mt);
+  r = mtwist_u32rand(mt);
 
   d = r / 4294967296.0; /* 2^32 */
 
