@@ -145,7 +145,6 @@ mtwist_update_state(mtwist* mt)
   int count;
   uint32_t *p = mt->state;
 
-  count = 0;
   for(count = (MTWIST_N - MTWIST_M + 1); --count; p++)
     *p = p[MTWIST_M] ^ MTWIST_TWIST(p[0], p[1]);
 
