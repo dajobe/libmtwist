@@ -130,7 +130,7 @@ main(int argc, char *argv[])
               program, test, v, expected_v);
       failures++;
     } else {
-#if DEBUG > 1
+#if defined(DEBUG) && DEBUG > 1
       if(check)
         fprintf(stderr,
                 "%s: Test %3d returned expected value: %lu OK\n",
