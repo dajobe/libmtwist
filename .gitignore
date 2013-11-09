@@ -2,10 +2,12 @@
 *.deps
 *.dylib
 *.libs
+*.lo
+*.log
 *.o
 *.plist
 *.so*
-*.lo
+*.trs
 *~
 CMakeCache.txt
 CMakeFiles/
@@ -16,6 +18,6 @@ Makefile.in
 Testing/
 cmake_install.cmake
 install_manifest.txt
+libmtwist.la
 mttest
 mttest.exe
-libmtwist.la
