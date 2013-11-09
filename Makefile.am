@@ -18,10 +18,18 @@ libmtwist_la_SOURCES = \
 mt.c \
 mtwist.h \
 mtwist_internal.h \
-seed.c \
-test.c
+seed.c
 
-CLEANFILES=*.plist
+TESTS=mttest
+
+mttest_SOURCES = test.c
+mttest_LDADD = libmtwist.la
+
+EXTRA_PROGRAMS=$(TESTS)
+
+CLEANFILES=$(TESTS) \
+*.plist
+
 
 if MAINTAINER_MODE
 # Run Clang static analyzer over sources.
