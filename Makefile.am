@@ -12,7 +12,7 @@ ANALYZE_COMMAND = $(ANALYZE) \
 	$(ANALYZE_FLAGS)
 
 noinst_LTLIBRARIES = libmtwist.la
-AM_CPPFLAGS = -DMTWIST_CONFIG -I$(top_builddir)/src
+AM_CPPFLAGS = -DMTWIST_CONFIG -I$(top_srcdir)/src
 
 libmtwist_la_SOURCES = \
 mt.c \
