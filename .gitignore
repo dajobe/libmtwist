@@ -15,6 +15,7 @@ CTestTestfile.cmake
 DartConfiguration.tcl
 Makefile
 Makefile.in
+TAGS
 Testing/
 cmake_install.cmake
 install_manifest.txt
