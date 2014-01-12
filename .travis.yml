@@ -1,0 +1,10 @@
+# see
+#   http://about.travis-ci.org/docs/user/getting-started/
+#   http://about.travis-ci.org/docs/user/languages/c/
+#   http://about.travis-ci.org/docs/user/build-configuration/
+#
+language: c
+compiler:
+  - gcc
+  - clang
+script: make -f GNUMakefile && make -f GNUMakefile check
