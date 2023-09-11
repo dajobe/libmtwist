@@ -68,8 +68,8 @@ mtwist_seed_from_system(mtwist* mt)
 {
   /* SOURCE 1: processor clock ticks since process started */
   uint32_t a = (uint32_t)clock();
-  /* SOURCE 2: unix time in seconds since epoch */
-  uint32_t b = (uint32_t)time(NULL);
+  /* SOURCE 2: 32 bits of unix time in seconds since epoch */
+  uint32_t b = (uint32_t)(time(NULL) & 0xffffffff);
   uint32_t c;
 #ifdef HAVE_UNISTD_H
   /* SOURCE 3: process ID (on unix) */
